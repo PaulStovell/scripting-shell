@@ -1,0 +1,159 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Windows="clr-namespace:Sheldon.Scripting.Windows"
+    xmlns:Extensions="clr-namespace:Sheldon.Extensions"
+    >
+
+    <!-- 
+    A classic style that visually merges the input text box with the output.
+    -->
+    <Style x:Key="Shell_Classic" TargetType="Windows:Shell">
+        <Style.Resources>
+            <!-- Resources available to the template and style -->
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <ScrollViewer ClipToBounds="False" Margin="0" Padding="0" x:Name="PART_ContentHost" TextBlock.LineHeight="18" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="RichTextBox" BasedOn="{StaticResource {x:Type RichTextBox}}">
+                <Style.Resources>
+                    <Style TargetType="Paragraph">
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                </Style.Resources>
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RichTextBox">
+                            <ScrollViewer ClipToBounds="False" Margin="-2,0,0,0" Padding="0" x:Name="PART_ContentHost" TextBlock.LineHeight="18" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Windows:ShellColorMappings x:Key="DefaultColorMappings">
+                <Windows:ShellColorMapping ConsoleColor="Black" Brush="Black" />
+                <Windows:ShellColorMapping ConsoleColor="Blue" Brush="Blue" />
+                <Windows:ShellColorMapping ConsoleColor="Cyan" Brush="Cyan" />
+                <Windows:ShellColorMapping ConsoleColor="DarkBlue" Brush="DarkBlue" />
+                <Windows:ShellColorMapping ConsoleColor="DarkCyan" Brush="DarkCyan" />
+                <Windows:ShellColorMapping ConsoleColor="DarkGray" Brush="DarkGray" />
+                <Windows:ShellColorMapping ConsoleColor="DarkGreen" Brush="DarkGreen" />
+                <Windows:ShellColorMapping ConsoleColor="DarkMagenta" Brush="DarkMagenta" />
+                <Windows:ShellColorMapping ConsoleColor="DarkRed" Brush="DarkRed" />
+                <Windows:ShellColorMapping ConsoleColor="DarkYellow" Brush="DarkKhaki" />
+                <Windows:ShellColorMapping ConsoleColor="Gray" Brush="Gray" />
+                <Windows:ShellColorMapping ConsoleColor="Green" Brush="Green" />
+                <Windows:ShellColorMapping ConsoleColor="Magenta" Brush="Magenta" />
+                <Windows:ShellColorMapping ConsoleColor="Red" Brush="Red" />
+                <Windows:ShellColorMapping ConsoleColor="White" Brush="White" />
+                <Windows:ShellColorMapping ConsoleColor="Yellow" Brush="Yellow" />
+            </Windows:ShellColorMappings>
+        </Style.Resources>
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="Foreground" Value="Lime" />
+        <Setter Property="PromptForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}" />
+        <Setter Property="FontFamily" Value="Consolas,Lucida Console" />
+        <Setter Property="FontSize" Value="11pt" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="OutputColorMappings" Value="{StaticResource DefaultColorMappings}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Windows:Shell">
+                    <Border Cursor="IBeam" Background="{TemplateBinding Background}" KeyboardNavigation.IsTabStop="False">
+                        <ScrollViewer x:Name="ConsoleScrollViewer" KeyboardNavigation.IsTabStop="False" VerticalScrollBarVisibility="Auto">
+                            <StackPanel 
+                                Margin="{TemplateBinding Padding}" 
+                                Background="Transparent" 
+                                Extensions:FocusDeferral.DeferFocusOnKeydown="{Binding ElementName=PART_InputTextBox}"
+                                Extensions:FocusDeferral.DeferFocusOnClick="{Binding ElementName=PART_InputTextBox}"
+                                >
+                                <!-- 
+                                The output text box 
+                                -->
+                                <RichTextBox 
+                                    x:Name="OutputTextBox"
+                                    Background="{TemplateBinding Background}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    IsReadOnly="True"
+                                    KeyboardNavigation.IsTabStop="False"
+                                    Extensions:RichTextBoxWrapping.TextWrapping="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TextWrapping}"
+                                    Extensions:RichTextBoxWrapping.TextWrappingBasedOnText="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OutputText}"
+                                    Extensions:BindableRichTextBox.BindableDocument="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OutputDocument}"
+                                    Extensions:AutoScrollingTextBox.ScrollToBottomOnTextChanged="{Binding ElementName=ConsoleScrollViewer}"
+                                    >
+                                    
+                                </RichTextBox>
+
+                                <Grid x:Name="InputGrid" HorizontalAlignment="Stretch" Margin="0,-1,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- 
+                                    The prompt label
+                                    -->
+                                    <TextBlock 
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        Foreground="{TemplateBinding PromptForeground}"
+                                        Grid.Column="0" 
+                                        Margin="3,0,0,0"
+                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ScriptingContext.Prompt}"
+                                        VerticalAlignment="Center"
+                                        />
+
+                                    <!-- 
+                                    The input text box
+                                    -->
+                                    <TextBox 
+                                        x:Name="PART_InputTextBox" 
+                                        Background="{TemplateBinding Background}"
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        Grid.Column="1" 
+                                        Margin="-3,0,0,0"
+                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CurrentCommand, UpdateSourceTrigger=PropertyChanged}"
+                                        >
+                                        <TextBox.InputBindings>
+                                            <KeyBinding Key="Enter" Command="Windows:ShellCommands.Execute" />
+                                            <KeyBinding Key="Escape" Command="Windows:ShellCommands.Clear" />
+                                            <KeyBinding Key="Up" Command="Windows:ShellCommands.CommandHistoryUp" />
+                                            <KeyBinding Key="Down" Command="Windows:ShellCommands.CommandHistoryDown" />
+                                        </TextBox.InputBindings>
+                                    </TextBox>
+                                </Grid>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Mode" Value="Output">
+                            <Setter TargetName="InputGrid" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="HasOutput" Value="False">
+                            <Setter TargetName="OutputTextBox" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="TextWrapping" Value="NoWrap">
+                            <Setter TargetName="ConsoleScrollViewer" Property="HorizontalScrollBarVisibility" Value="Auto" />
+                        </Trigger>
+                        <Trigger Property="TextWrapping" Value="Wrap">
+                            <Setter TargetName="ConsoleScrollViewer" Property="HorizontalScrollBarVisibility" Value="Disabled" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

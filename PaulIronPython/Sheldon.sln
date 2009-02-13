@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sheldon", "Sheldon\Sheldon.csproj", "{9E7C5981-8BF7-4D67-80EE-EDA5D79308E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sheldon.Demo", "Sheldon.Demo\Sheldon.Demo.csproj", "{21FFB832-A856-4D46-8044-F0BA3CEA97E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E7C5981-8BF7-4D67-80EE-EDA5D79308E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E7C5981-8BF7-4D67-80EE-EDA5D79308E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E7C5981-8BF7-4D67-80EE-EDA5D79308E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E7C5981-8BF7-4D67-80EE-EDA5D79308E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21FFB832-A856-4D46-8044-F0BA3CEA97E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21FFB832-A856-4D46-8044-F0BA3CEA97E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21FFB832-A856-4D46-8044-F0BA3CEA97E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21FFB832-A856-4D46-8044-F0BA3CEA97E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

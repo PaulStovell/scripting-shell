@@ -1,0 +1,12 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Windows="clr-namespace:Sheldon.Scripting.Windows"
+    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Sheldon;Component/Resources/Shell.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+    <!-- Sets up a default style for anyone who references this assembly and does not explicitly choose a style -->
+    <Style TargetType="Windows:Shell" BasedOn="{StaticResource Shell_Classic}" />
+</ResourceDictionary>

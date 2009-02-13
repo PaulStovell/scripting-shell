@@ -1,0 +1,51 @@
+﻿<Window 
+    x:Class="Sheldon.Demo.ConsoleWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Windows="clr-namespace:Sheldon.Scripting.Windows;assembly=Sheldon"
+    Width="900" Height="600"
+    Title="WPF Scripting Demo"
+    >
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Margin="5">
+            <WrapPanel >
+                <TextBlock Margin="5" VerticalAlignment="Center" Text="Wrapping: " />
+                <ComboBox x:Name="WrappingCombo" Margin="5">
+                    <ComboBoxItem DataContext="Wrap" Content="Wrap" />
+                    <ComboBoxItem DataContext="NoWrap" Content="No Wrap" IsSelected="True" />
+                </ComboBox> 
+            </WrapPanel>
+        </Border>
+        <Border Margin="5">
+            <TabControl>
+                <TabItem Header="Immediate" Padding="3">
+                    <Windows:Shell x:Name="Shell1" Background="Navy" Foreground="Yellow" PromptForeground="White" Padding="7" TextWrapping="{Binding ElementName=WrappingCombo, Path=SelectedItem.DataContext, Mode=TwoWay}" />
+                </TabItem>
+                <TabItem Header="Output" Padding="3">
+                    <Windows:Shell x:Name="Shell2" Background="Black" Foreground="Lime" FontFamily="Courier New" Mode="Output" Padding="7" />
+                </TabItem>
+                <TabItem Header="Custom" Padding="3">
+                    <Windows:Shell x:Name="Shell3" Style="{StaticResource Shell_Fire}" Padding="7" />
+                </TabItem>
+                <TabItem Header="Information" Padding="3">
+                    <FlowDocumentScrollViewer>
+                        <FlowDocument>
+                            <Paragraph>
+                                This is a demonstration of three Shell controls, each interacting with the same Iron Python scripting context. Try the following commands: 
+                            </Paragraph>
+                            <Paragraph FontFamily="Consolas">
+                                print 8 + 9
+                                <LineBreak />
+                                w = GetWindow("WPF Shell Demo")
+                                <LineBreak />
+                                w.Title = "Fred"
+                                <LineBreak />
+                                w.Width = 700
+                            </Paragraph>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+                </TabItem>
+            </TabControl>
+        </Border>
+    </DockPanel>
+</Window>
